@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Tickets</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(to bottom, #111111, #2d2d2d); color: white; margin: 0; min-height: 100vh; }
+        .navbar { background-color: #000; padding: 15px 20px; display: flex; gap: 20px; border-bottom: 3px solid #CEB888; }
+        .navbar a { color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; }
+        .navbar a:hover { color: #CEB888; }
+        .container { max-width: 900px; margin: 40px auto; background-color: #1e1e1e; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #CEB888; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        th { background-color: #2a2a2a; color: #CEB888; }
+        .btn { background-color: #CEB888; color: black; padding: 10px 15px; border: none; border-radius: 5px; text-decoration: none; font-weight: bold; cursor: pointer; display: inline-block; margin-bottom: 15px; }
+        .btn:hover { background-color: #b89f6d; }
+        .btn-small { padding: 5px 10px; font-size: 0.9rem; }
+        .btn-danger { background-color: #dc2626; color: white; margin-left: 5px; }
+        .btn-danger:hover { background-color: #b91c1c; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">🏠 Home</a>
+        <a href="/my-tickets" style="color: #CEB888;">🎟️ Manage Tickets</a>
+        <a href="/find-tickets">🏟️ Find Tickets</a>
+    </div>
+
+    <div class="container">
+        <h1>Manage My Tickets</h1>
+        <a href="/add-ticket" class="btn">+ List a New Ticket</a>
+        
+        <table>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Event ID</th>
+                <th>Asking Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            {% for ticket in tickets %}
+            <tr>
+                <td>#{{ ticket.ticket_id }}</td>
+                <td>{{ ticket.event_id }}</td>
+                <td><b>${{ ticket.price }}</b></td>
+                <td>
+                    <span style="color: {% if ticket.status == 'Available' %}#4ade80{% elif ticket.status == 'Sold' %}#f87171{% else %}#94a3b8{% endif %};">
+                        {{ ticket.status }}
+                    </span>
+                </td>
+                <td>
+                    <a href="/edit-ticket/{{ ticket.ticket_id }}" class="btn btn-small">Edit</a>
+                    <form action="/delete-ticket/{{ ticket.ticket_id }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-small btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align: center; color: #94a3b8;">You have no tickets listed.</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

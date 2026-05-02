@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Tickets</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(to bottom, #111111, #2d2d2d); color: white; margin: 0; min-height: 100vh; }
+        .navbar { background-color: #000; padding: 15px 20px; display: flex; gap: 20px; border-bottom: 3px solid #CEB888; }
+        .navbar a { color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; }
+        .navbar a:hover { color: #CEB888; }
+        .container { max-width: 900px; margin: 40px auto; background-color: #1e1e1e; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #CEB888; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
+        .filter-form { display: flex; gap: 15px; align-items: flex-end; background-color: #2a2a2a; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .filter-group { display: flex; flex-direction: column; flex-grow: 1; }
+        label { margin-bottom: 5px; font-weight: bold; color: #cbd5e1; font-size: 0.9rem; }
+        select, input { padding: 10px; border-radius: 5px; border: 1px solid #555; background-color: #1e1e1e; color: white; }
+        .btn { background-color: #CEB888; color: black; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; height: 40px; }
+        .btn:hover { background-color: #b89f6d; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        th { background-color: #2a2a2a; color: #CEB888; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">🏠 Home</a>
+        <a href="/my-tickets">🎟️ Manage Tickets</a>
+        <a href="/find-tickets" style="color: #CEB888;">🏟️ Find Tickets</a>
+    </div>
+
+    <div class="container">
+        <h1>Find Student Tickets</h1>
+
+        <form method="GET" action="/find-tickets" class="filter-form">
+            <div class="filter-group">
+                <label>Filter by Sport:</label>
+                <select name="sport">
+                    <option value="">-- All Sports --</option>
+                    {% for sport in sports %}
+                        <option value="{{ sport }}">{{ sport }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Max Price ($):</label>
+                <input type="number" step="0.01" name="max_price" placeholder="e.g. 50">
+            </div>
+
+            <button type="submit" class="btn">🔍 Search</button>
+        </form>
+
+        <table>
+            <tr>
+                <th>Event (Opponent)</th>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>Asking Price</th>
+                <th>Status</th>
+            </tr>
+            {% for ticket, event in results %}
+            <tr>
+                <td><b>{{ event.opponent }}</b> <span style="color: #94a3b8; font-size: 0.9em;">({{ event.sport_type }})</span></td>
+                <td>{{ event.event_date }}</td>
+                <td>{{ event.venue }}</td>
+                <td style="color: #4ade80; font-weight: bold;">${{ ticket.price }}</td>
+                <td>
+                    {% if ticket.status == 'Available' %}
+                        <form action="/buy-ticket/{{ ticket.ticket_id }}" method="POST" style="margin: 0;">
+                            <button type="submit" class="btn btn-small" style="background-color: #16a34a; color: white;">🛒 Buy Now</button>
+                        </form>
+                    {% else %}
+                        <span style="color: #f87171; font-weight: bold;">Sold Out</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align: center; color: #94a3b8;">No tickets found matching your search.</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

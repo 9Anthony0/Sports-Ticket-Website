@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List a Ticket</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(to bottom, #111111, #2d2d2d); color: white; margin: 0; min-height: 100vh; }
+        .navbar { background-color: #000; padding: 15px 20px; display: flex; gap: 20px; border-bottom: 3px solid #CEB888; }
+        .navbar a { color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; }
+        .navbar a:hover { color: #CEB888; }
+        .container { max-width: 500px; margin: 60px auto; background-color: #1e1e1e; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #CEB888; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; text-align: center; }
+        label { display: block; margin: 15px 0 5px; font-weight: bold; color: #cbd5e1; }
+        select, input { width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #555; background-color: #2a2a2a; color: white; box-sizing: border-box; }
+        .btn { width: 100%; background-color: #CEB888; color: black; padding: 12px; border: none; border-radius: 5px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
+        .btn:hover { background-color: #b89f6d; }
+        .cancel { display: block; text-align: center; margin-top: 15px; color: #94a3b8; text-decoration: none; }
+        .cancel:hover { color: white; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">🏠 Home</a>
+        <a href="/my-tickets">🎟️ Manage Tickets</a>
+        <a href="/find-tickets">🏟️ Find Tickets</a>
+    </div>
+
+    <div class="container">
+        <h1>List a New Ticket</h1>
+        <form method="POST">
+            <label>Select Event:</label>
+            <select name="event_id" required>
+                <option value="" disabled selected>-- Choose an Event --</option>
+                {% for event in events %}
+                    <option value="{{ event.event_id }}">{{ event.opponent }} ({{ event.sport_type }})</option>
+                {% endfor %}
+            </select>
+            
+            <label>Asking Price ($):</label>
+            <input type="number" step="0.01" name="price" placeholder="e.g. 25.00" required>
+            
+            <button type="submit" class="btn">Post Ticket Listing</button>
+        </form>
+        <a href="/my-tickets" class="cancel">Nevermind, cancel</a>
+    </div>
+</body>
+</html>

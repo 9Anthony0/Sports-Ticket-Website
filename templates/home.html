@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Ticket Exchange</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Dark stadium-style gradient background */
+            background: linear-gradient(to bottom, #111111, #2d2d2d);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* The Hero Section (Title area) */
+        .hero {
+            text-align: center;
+            margin-top: 10vh;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #CEB888; /* Gold accent color */
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 50px;
+        }
+
+        /* The Button Cards Container */
+        .action-dashboard {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Individual Button Cards */
+        .sport-card {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 250px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-bottom: 8px solid #CEB888; 
+        }
+
+        /* Hover animation so it pops up when the mouse is over it */
+        .sport-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+        }
+
+        /* Custom bottom borders for different sports themes */
+        .btn-manage {
+            border-bottom-color: #ea580c; /* Basketball Orange */
+        }
+        
+        .btn-find {
+            border-bottom-color: #16a34a; /* Football Turf Green */
+        }
+
+        /* Emoji Icons inside the cards */
+        .icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Student Ticket Exchange</h1>
+        <p>The easiest way to buy, sell, and find tickets for the student section.</p>
+        
+        <div class="action-dashboard">
+            <a href="/my-tickets" class="sport-card btn-manage">
+                <span class="icon">🎟️</span>
+                Manage My Tickets
+            </a>
+            
+            <a href="/find-tickets" class="sport-card btn-find">
+                <span class="icon">🏟️</span>
+                Find Tickets
+            </a>
+        </div>
+    </div>
+</body>
+</html>
